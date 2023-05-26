@@ -1,10 +1,11 @@
 import tkinter as tk
+import tkinter.messagebox
 from tkinter import ttk
-import Numero_Gerado
+import NumeroGerado
 import Jogada
 
 # esse valor é gerado antes da tela aparecer e nao pode ser modificado no decorrer no codigo em hipotese alguma
-numero_gerado = Numero_Gerado.gerar_numero()
+numero_gerado = NumeroGerado.gerar_numero()
 
 janela = tk.Tk()
 janela.title('Adivinhe o número! Não repita cararteres e nao Passe de 4 digitos ')
@@ -23,15 +24,26 @@ TxtBarnumero = ttk.Entry(frm)
 TxtBarnumero.grid(column=1, row=2)
 
 
-def testar_num():
-    Jogada.comparar_numero_sugerido(TxtBarnumero.get(), numero_gerado)
+def test():
+    Jogada.conta_caracteres(TxtBarnumero)
 
 
 # Button
-BtTestar = ttk.Button(frm, text='Conferir números', command=testar_num)
+BtTestar = ttk.Button(frm, text='Conferir números', command=test())
 BtTestar.grid(column=1, row=4)
 
 Btsair = ttk.Button(frm, name='btsair', text="Sair", command=janela.destroy)
 Btsair.grid(column=1, row=6, padx=5, pady=5)
+
+
+# mostra determinada mensagem de acordo com o id de cada uma
+def mensagens(id):
+    # Mensagens de erro
+    if id == 0:
+        tk.messagebox.showinfo(title=None, message='O número sugerido deve ter exatamente 4(quatro) caracteres')
+
+    if id == 1:
+        tk.messagebox.showinfo(title=None, message='O número sugerido nao pode conter caracteres repetidos')
+
 
 janela.mainloop()
