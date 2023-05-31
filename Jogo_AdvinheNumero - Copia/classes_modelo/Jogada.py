@@ -1,7 +1,5 @@
 # link de jogo de referencia https://pt.goobix.com/jogos-online/adivinhar-numero/
-from classes_modelo import NumeroGerado
 import Janela
-import tkinter
 
 
 class Jogada:
@@ -10,11 +8,11 @@ class Jogada:
         self.numero_sugerido = numero_sugerido
         self.resultados = resultados
 
-    lista_jogada = []
+    lista_jogadas = []
 
 
 # confere se o numero sugerido se encaixa no padrão
-def analisa_caracteres(TxtBarnumero, num_gerado):
+def analisa_caracteres(TxtBarnumero):
     num_sug = TxtBarnumero.get()
     repete = False
 
@@ -26,6 +24,7 @@ def analisa_caracteres(TxtBarnumero, num_gerado):
             # se algum numero repetir
             return 2
         else:
+            print('REtornou 0')
             return 0
     else:
         # se nao houver caracteres o suficiente
@@ -33,7 +32,7 @@ def analisa_caracteres(TxtBarnumero, num_gerado):
 
 
 # compara se o numero gerado e o sugerido sao iguais:
-def compara_numeros( num_sugerido, num_gerado):
+def compara_numeros(num_sugerido, num_gerado):
     qtd_algarismos_mesmap = 0
     qtd_algarismos_outrap = 0
 
@@ -43,7 +42,7 @@ def compara_numeros( num_sugerido, num_gerado):
         return True
 
     elif num_gerado != num_sugerido:
-        print('caiu no elif', num_gerado)
+        print(num_gerado)
         # Algum algarismo esta na mesma posição ou não?(quantos)
         for n in num_gerado:
             if num_sugerido.count(n) == 1:
@@ -54,12 +53,9 @@ def compara_numeros( num_sugerido, num_gerado):
 
         # Gerar lista de objetos da clase jogada e mostra lo na tela em forma de tabela
 
-        jogada = Jogada(len(Jogada.lista_jogada), numero_sugerido=num_sugerido,
-                        resultados=f'Na mesma posição:{qtd_algarismos_mesmap}'
-                                   f' \n Em outra posição:{qtd_algarismos_outrap}')
+        jogada = Jogada(len(Jogada.lista_jogadas) + 1, numero_sugerido=num_sugerido,
+                        resultados=f' {qtd_algarismos_mesmap}'
+                                   f'               |               {qtd_algarismos_outrap}')
 
-        print(jogada.id_jogada, jogada.numero_sugerido, jogada.resultados)
-        return jogada.lista_jogada.append(jogada)
-
-
-
+        Jogada.lista_jogadas.append(jogada)
+        print('------------------->>', jogada.id_jogada, jogada.numero_sugerido, jogada.resultados)
