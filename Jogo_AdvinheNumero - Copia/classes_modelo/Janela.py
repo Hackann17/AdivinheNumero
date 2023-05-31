@@ -6,18 +6,16 @@ from Jogada import Jogada as jogada
 from tkinter import messagebox
 
 id_jog = 0
+
+
 # esse valor é gerado antes da tela aparecer e nao pode ser modificado no decorrer no codigo em hipotese alguma
-# numero_gerado = NumeroGerado.gerar_numero()
+class Janela:
+    numero_gerado = NumeroGerado.gerar_numero()
+    list_Txtjogadas = []
 
-# while numero_gerado == 'nada':
-# numero_gerado = NumeroGerado.gerar_numero()
-
-numero_gerado = NumeroGerado.gerar_numero()
 
 janela = tk.Tk()
-janela.title('Adivinhe o número! Não repita cararteres e nao Passe de 4 digitos ')
-# frm = ttk.Frame(janela, width=10, height=20)
-# frm.grid( padx=10, pady=10)
+janela.title('Adivinhe o número!  ')
 # Label
 Lbcabecalho = tk.Label(janela, text="Algarismos disponiveis:")
 Lbcabecalho.grid(column=1, row=0)
@@ -34,12 +32,11 @@ TxtBarnumero = tk.Entry(janela)
 TxtBarnumero.grid(column=1, row=2)
 
 
-
 def test():
     num_id = Jogada.analisa_caracteres(TxtBarnumero)
 
     if num_id == 0:
-        Jogada.compara_numeros(TxtBarnumero.get(), numero_gerado)
+        Jogada.compara_numeros(TxtBarnumero.get(), Janela.numero_gerado)
         gera_tabela(jogada.lista_jogadas)
 
     if num_id == 1:
@@ -75,9 +72,14 @@ def mensagens(msg_id):
     if msg_id == 3:
         resposta = messagebox.askquestion(title=None,
                                           message=f"Pabens voce acertou o número!!\n Numero Sugerido:{txt3} "
-                                                  f"\n Numeros Gerado: {numero_gerado} \n Deseja jogar de novo ? ")
+                                                  f"\n Numeros Gerado: {Janela.numero_gerado} \n Deseja jogar de novo ? ")
         if resposta == 'yes':
             print('O cara quer jogar de novo kkkk')
+            jogada.lista_jogadas.clear()
+            Janela.numero_gerado = NumeroGerado.gerar_numero()
+            list_l = Janela.list_Txtjogadas
+            list_l.clear()
+            TxtBarnumero.delete(0, len(TxtBarnumero.get()))
 
         else:
             janela.destroy()
@@ -91,8 +93,9 @@ def gera_tabela(lista_jogadas):
     # id jogada, numsugerido,mesmap , outrap
     for i in range(len(lista_jogadas)):
         jog = lista_jogadas[i]
-        tk.Label(janela, text=f' {jog.id_jogada}     |             {jog.numero_sugerido}           | '
-                              f'           {jog.resultados}           ').grid(column=1, row=i + 12)
+        Janela.list_Txtjogadas.append(
+            tk.Label(janela, text=f' {jog.id_jogada}     |             {jog.numero_sugerido}           | '
+                                  f'           {jog.resultados}           ').grid(column=1, row=i + 12))
 
 
 janela.mainloop()

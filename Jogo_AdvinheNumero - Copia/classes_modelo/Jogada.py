@@ -1,5 +1,4 @@
 # link de jogo de referencia https://pt.goobix.com/jogos-online/adivinhar-numero/
-import Janela
 
 
 class Jogada:
@@ -9,6 +8,7 @@ class Jogada:
         self.resultados = resultados
 
     lista_jogadas = []
+
 
 # confere se o numero sugerido se encaixa no padrão
 def analisa_caracteres(TxtBarnumero):
@@ -40,15 +40,16 @@ def analisa_caracteres(TxtBarnumero):
         # se nao houver caracteres o suficiente
         return 1
 
+
 # compara se o numero gerado e o sugerido sao iguais:
 def compara_numeros(num_sugerido, num_gerado):
+    from Janela import mensagens
     qtd_algarismos_mesmap = 0
     qtd_algarismos_outrap = 0
 
     # Veirificar se sao iguais
     if num_gerado == num_sugerido:
-        Janela.mensagens(3)
-        return True
+        mensagens(3)
 
     elif num_gerado != num_sugerido:
         # Algum algarismo esta na mesma posição ou não?(quantos)

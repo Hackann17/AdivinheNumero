@@ -7,7 +7,6 @@ def gerar_numero():
     for i in num_gerado:
         if num_gerado.count(i) != 1:
             return gerar_numero()
-    print(num_gerado, 'esse aki ')
     return num_gerado
 
 
