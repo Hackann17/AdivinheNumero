@@ -10,12 +10,23 @@ class Jogada:
 
     lista_jogadas = []
 
-
 # confere se o numero sugerido se encaixa no padrão
 def analisa_caracteres(TxtBarnumero):
-    num_sug = TxtBarnumero.get()
+    num_sug = str(TxtBarnumero.get())
     repete = False
+    carac_nao_num = '!@#$%¨&*()_| <,>.;/?}]{[^+='
 
+    # verifica se há aalgum caracter especial
+    for i in num_sug:
+        for c in carac_nao_num:
+            if i == c:
+                TxtBarnumero.delete(0, len(num_sug))
+                return 4
+        # se tem alguma letra
+        if i.isalpha():
+            TxtBarnumero.delete(0, len(num_sug))
+            return 4
+    # verifica se o comprimento do numero é maior ou menor que 4, e se ha alguma repetição
     if len(num_sug) == 4:
         for i in num_sug:
             if num_sug.count(i) >= 2:
@@ -24,12 +35,10 @@ def analisa_caracteres(TxtBarnumero):
             # se algum numero repetir
             return 2
         else:
-            print('REtornou 0')
             return 0
     else:
         # se nao houver caracteres o suficiente
         return 1
-
 
 # compara se o numero gerado e o sugerido sao iguais:
 def compara_numeros(num_sugerido, num_gerado):
@@ -42,7 +51,6 @@ def compara_numeros(num_sugerido, num_gerado):
         return True
 
     elif num_gerado != num_sugerido:
-        print(num_gerado)
         # Algum algarismo esta na mesma posição ou não?(quantos)
         for n in num_gerado:
             if num_sugerido.count(n) == 1:
@@ -56,6 +64,4 @@ def compara_numeros(num_sugerido, num_gerado):
         jogada = Jogada(len(Jogada.lista_jogadas) + 1, numero_sugerido=num_sugerido,
                         resultados=f' {qtd_algarismos_mesmap}'
                                    f'               |               {qtd_algarismos_outrap}')
-
         Jogada.lista_jogadas.append(jogada)
-        print('------------------->>', jogada.id_jogada, jogada.numero_sugerido, jogada.resultados)

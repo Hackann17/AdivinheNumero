@@ -7,10 +7,12 @@ from tkinter import messagebox
 
 id_jog = 0
 # esse valor é gerado antes da tela aparecer e nao pode ser modificado no decorrer no codigo em hipotese alguma
-numero_gerado = NumeroGerado.gerar_numero()
+# numero_gerado = NumeroGerado.gerar_numero()
 
-while numero_gerado == 'nada':
-    numero_gerado = NumeroGerado.gerar_numero()
+# while numero_gerado == 'nada':
+# numero_gerado = NumeroGerado.gerar_numero()
+
+numero_gerado = NumeroGerado.gerar_numero()
 
 janela = tk.Tk()
 janela.title('Adivinhe o número! Não repita cararteres e nao Passe de 4 digitos ')
@@ -23,9 +25,14 @@ Lbcabecalho.grid(column=1, row=0)
 Lbnumeros = tk.Label(janela, text='0123456789')
 Lbnumeros.grid(column=1, row=1)
 
+ttk.Label(janela, text='-------------Jogadas-------------').grid(column=1, row=7, padx=10)
+
+ttk.Label(janela, text='id  | numero sugerido | mesma posição |  outra posição').grid(column=1, row=11, padx=6)
+
 # Entrada de texto
 TxtBarnumero = tk.Entry(janela)
 TxtBarnumero.grid(column=1, row=2)
+
 
 
 def test():
@@ -37,7 +44,11 @@ def test():
 
     if num_id == 1:
         mensagens(num_id)
-    elif num_id == 2:
+
+    if num_id == 2:
+        mensagens(num_id)
+
+    if num_id == 4:
         mensagens(num_id)
 
 
@@ -52,7 +63,7 @@ Btsair.grid(column=1, row=6, padx=4, pady=4)
 # mostra determinada mensagem de acordo com o id de cada uma
 def mensagens(msg_id):
     txt3 = TxtBarnumero.get()
-    print(txt3, type(txt3))
+
     # Mensagens de erro
     if msg_id == 1:
         TxtBarnumero.insert(0, '')
@@ -62,14 +73,17 @@ def mensagens(msg_id):
         messagebox.showinfo(title=None, message='O número sugerido nao pode conter caracteres repetidos')
 
     if msg_id == 3:
-        messagebox.showinfo(title=None,
-                            message=f"Pabens voce acertou o número!!\n Numero Sugerido:{txt3} \n Numeros Gerado: {numero_gerado}")
+        resposta = messagebox.askquestion(title=None,
+                                          message=f"Pabens voce acertou o número!!\n Numero Sugerido:{txt3} "
+                                                  f"\n Numeros Gerado: {numero_gerado} \n Deseja jogar de novo ? ")
+        if resposta == 'yes':
+            print('O cara quer jogar de novo kkkk')
+
+        else:
+            janela.destroy()
+
     if msg_id == 4:
-        messagebox.showinfo(title=None, message=f'Vc errou o número')
-
-
-ttk.Label(janela, text='-------------Jogadas-------------').grid(column=1, row=7, padx=10)
-ttk.Label(janela, text='id  | numero sugerido | mesma posição |  outra posição').grid(column=1, row=11, padx=6)
+        messagebox.showinfo(title=None, message=f'Só sao permitidos números')
 
 
 def gera_tabela(lista_jogadas):

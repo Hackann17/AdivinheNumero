@@ -5,12 +5,9 @@ def gerar_numero():
     num_gerado = str(random.randint(1000, 9999))
 
     for i in num_gerado:
-        if num_gerado.count(i) >= 2:
-            print(num_gerado)
-            num_gerado = 'nada'
-            gerar_numero()
-
-    print('--------/>', num_gerado)
+        if num_gerado.count(i) != 1:
+            return gerar_numero()
+    print(num_gerado, 'esse aki ')
     return num_gerado
 
 
