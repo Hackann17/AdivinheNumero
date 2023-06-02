@@ -43,13 +43,13 @@ def analisa_caracteres(TxtBarnumero):
 
 # compara se o numero gerado e o sugerido sao iguais:
 def compara_numeros(num_sugerido, num_gerado):
-    from Janela import mensagens
+
     qtd_algarismos_mesmap = 0
     qtd_algarismos_outrap = 0
 
     # Veirificar se sao iguais
     if num_gerado == num_sugerido:
-        mensagens(3)
+        return 3
 
     elif num_gerado != num_sugerido:
         # Algum algarismo esta na mesma posição ou não?(quantos)
